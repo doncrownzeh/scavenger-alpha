@@ -8,7 +8,7 @@ import korba.crownzeh.scavenger.screens.button.ButtonCreator
 
 class LevelSelectionTable {
 
-  def createSelectionTable(): Table = {
+  private[levelselect] def createSelectionTable(): Table = {
 
     val levelTable = new Table
     levelTable.center.top.padTop(15)

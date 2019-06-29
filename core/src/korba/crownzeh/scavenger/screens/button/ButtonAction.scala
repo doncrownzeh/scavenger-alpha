@@ -7,7 +7,7 @@ import korba.crownzeh.scavenger.screens.levelselect.LevelSelectionScreen
 
 object ButtonAction {
 
-  def exitGame(): Unit = {
+  private[screens] def exitGame(): Unit = {
     Gdx.app.exit()
   }
 

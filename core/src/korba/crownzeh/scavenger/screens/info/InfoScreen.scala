@@ -11,23 +11,21 @@ import korba.crownzeh.scavenger.screens.Backable
 
 class InfoScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen) extends Screen with Backable{
 
-  val camera = new OrthographicCamera
-  val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
-  val stage = new Stage(viewport, spriteBatch)
+  private val camera = new OrthographicCamera
+  private val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
+  private val stage = new Stage(viewport, spriteBatch)
+  private  val resolution: String = Gdx.graphics.getWidth + "/" + Gdx.graphics.getHeight
 
+  private val deviceLabel = new Label("Device", new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val deviceVersionLabel = new Label(Properties.device.toString, new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val resolutionLabel = new Label("Resolution", new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val currentResolutionLabel = new Label(resolution, new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val versionLabel = new Label("Version", new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val currentVersionLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val authorLabel = new Label("Author", new Label.LabelStyle(new BitmapFont, Color.WHITE))
+  private val authorTextLabel = new Label("Jakub Krzetowski", new Label.LabelStyle(new BitmapFont, Color.WHITE))
 
-  val resolution: String = Gdx.graphics.getWidth + "/" + Gdx.graphics.getHeight
-
-  val deviceLabel = new Label("Device", new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val deviceVersionLabel = new Label(Properties.device.toString, new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val resolutionLabel = new Label("Resolution", new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val currentResolutionLabel = new Label(resolution, new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val versionLabel = new Label("Version", new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val currentVersionLabel = new Label("ALPHA", new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val authorLabel = new Label("Author", new Label.LabelStyle(new BitmapFont, Color.WHITE))
-  val authorTextLabel = new Label("Jakub Krzetowski", new Label.LabelStyle(new BitmapFont, Color.WHITE))
-
-  val table: InfoTable = new InfoTable()
+  private val table: InfoTable = new InfoTable()
   table.addLabelRow(deviceLabel, deviceVersionLabel)
   table.addLabelRow(resolutionLabel, currentResolutionLabel)
   table.addLabelRow(versionLabel, currentVersionLabel)

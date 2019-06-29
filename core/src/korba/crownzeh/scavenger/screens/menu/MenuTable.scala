@@ -11,7 +11,7 @@ import korba.crownzeh.scavenger.screens.button.{ButtonAction, ButtonCreator}
 
 class MenuTable(game: Game, spriteBatch: SpriteBatch, menuScreen: MenuScreen) {
 
-  def createMenuTable(): Table = {
+  private[menu] def createMenuTable(): Table = {
     val logo = new Image(new Texture(ImagePath.LOGO))
     val table = new Table
     table.center.top.padTop(10)

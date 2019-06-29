@@ -7,11 +7,11 @@ class InfoTable {
   table.center.top
   table.setFillParent(true)
 
-  def getTable: Table = {
+  private[info] def getTable: Table = {
     this.table
   }
 
-  def addLabelRow (descriptionLabel: Label, valueLabel: Label): Unit = {
+  private[info] def addLabelRow (descriptionLabel: Label, valueLabel: Label): Unit = {
     table.add(descriptionLabel).expandX.padTop(10)
     table.add(valueLabel).expandX.padTop(10)
     table.row

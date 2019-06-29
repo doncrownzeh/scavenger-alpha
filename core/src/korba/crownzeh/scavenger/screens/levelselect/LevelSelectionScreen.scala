@@ -13,11 +13,11 @@ import korba.crownzeh.scavenger.screens.Backable
 
 class LevelSelectionScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen) extends Screen with Backable{
 
-  val camera = new OrthographicCamera
-  val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
-  val background = new Texture(ImagePath.BACKGROUND)
-  val stage = new Stage(viewport, spriteBatch)
-  val selectionTable = new LevelSelectionTable
+  private val camera = new OrthographicCamera
+  private val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
+  private val background = new Texture(ImagePath.BACKGROUND)
+  private val stage = new Stage(viewport, spriteBatch)
+  private val selectionTable = new LevelSelectionTable
   stage.addActor(selectionTable.createSelectionTable())
   stage.addActor(createBackTable(game, previousScreen))
 
