@@ -2,6 +2,7 @@ package korba.crownzeh.scavenger.gameplay.control
 
 import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.{Gdx, InputProcessor}
+import korba.crownzeh.scavenger.gameplay.player.PlayerAction
 
 case class KeyboardProcessor(action: PlayerAction) extends InputProcessor{
   override def keyDown(keycode: Int): Boolean = {

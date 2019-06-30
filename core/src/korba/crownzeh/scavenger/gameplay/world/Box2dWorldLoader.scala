@@ -1,7 +1,7 @@
 package korba.crownzeh.scavenger.gameplay.world
 
 import C.SolidTile
-import com.badlogic.gdx.Game
+import com.badlogic.gdx.{Game, Gdx}
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.World
@@ -31,7 +31,7 @@ class Box2dWorldLoader(game: Game, map: TiledMap, world: World, gameScreen: Game
        case COIN_LAYER => new Coin(world, map, tile.getRectangle)
        case HEART_LAYER => new Heart(world, map, tile.getRectangle)
        case SPIKE_LAYER => new Spike(world, map, tile.getRectangle)
-       case ENEMY_LAYER => {} // TODO
+       case ENEMY_LAYER => {Gdx.app.log("Enemy","not supported yet")} // TODO
        case ENEMY_BLOCKER_LAYER => new EnemyBlocker(world, map, tile.getRectangle)
      }
     }
