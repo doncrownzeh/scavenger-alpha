@@ -1,11 +1,14 @@
 package korba.crownzeh.scavenger.assets.level
 
+import korba.crownzeh.scavenger.config.Properties
+
 object LevelLoader {
 
   def loadLevels(): IndexedSeq[Level] = {
     var levels: Vector[Level] = Vector[Level]()
     val levelTypes: Vector[LevelType] = Vector(City, Desert, Dungeon)
     levelTypes.foreach({levels ++= loadForType(_)})
+    if (Properties.devMode) {unlockAllLevels(levels)}
     levels
   }
 

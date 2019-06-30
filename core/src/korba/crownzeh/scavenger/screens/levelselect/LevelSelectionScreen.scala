@@ -18,7 +18,7 @@ class LevelSelectionScreen (game: Game, spriteBatch: SpriteBatch, previousScreen
   private val background = new Texture(ImagePath.BACKGROUND)
   private val stage = new Stage(viewport, spriteBatch)
   private val selectionTable = new LevelSelectionTable
-  stage.addActor(selectionTable.createSelectionTable())
+  stage.addActor(selectionTable.createSelectionTable(game, spriteBatch))
   stage.addActor(createBackTable(game, previousScreen))
 
   override def show(): Unit = {
@@ -42,7 +42,8 @@ class LevelSelectionScreen (game: Game, spriteBatch: SpriteBatch, previousScreen
 
   override def resume(): Unit = {}
 
-  override def hide(): Unit = {}
+  override def hide(): Unit = {
+  }
 
   override def dispose(): Unit = {}
 }
