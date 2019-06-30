@@ -11,7 +11,7 @@ import com.badlogic.gdx.{Game, Gdx, Screen}
 import korba.crownzeh.scavenger.assets.level.Level
 import korba.crownzeh.scavenger.config.Properties
 import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
-import korba.crownzeh.scavenger.gameplay.control.{KeyboardProcessor, MobileOverlay}
+import korba.crownzeh.scavenger.gameplay.control.{KeyboardProcessor, MobileOverlay, PlayerAction}
 import korba.crownzeh.scavenger.gameplay.player.PlayerAspect
 import korba.crownzeh.scavenger.gameplay.scene.InGameHud
 import korba.crownzeh.scavenger.gameplay.world.{Box2dWorldLoader, WorldContactListener}
@@ -31,7 +31,7 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   private val world = new World(new Vector2(0, -10), true)
   private val b2ddr = new Box2DDebugRenderer
   setPhysicsIndicators()
-  val player = new PlayerAspect(world)
+  private val player = new PlayerAspect(world)
   val hud = new InGameHud(game, spriteBatch, player)
   // val controlOverlay = new ControlOverlay(game.batch, player, game, this.theme) TODO
   val b2world = new Box2dWorldLoader(game, map, world, this)
@@ -40,12 +40,14 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   world.setContactListener(new WorldContactListener(player))
   private val theme = level.theme
   theme.setLooping(true)
+  theme.setVolume(if (Properties.devMode) 0.05f else 1f)
   theme.play()
+  val playerAction = new PlayerAction(player)
 
   override def show(): Unit = {
     Gdx.input.setInputProcessor(Properties.device match {
-      case ApplicationType.Desktop => KeyboardProcessor
-      case ApplicationType.Android => MobileOverlay.getStage
+      case ApplicationType.Desktop => KeyboardProcessor(playerAction)
+      case ApplicationType.Android => MobileOverlay(playerAction).getStage
     })
   }
 

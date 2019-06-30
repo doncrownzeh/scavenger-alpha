@@ -11,12 +11,12 @@ import korba.crownzeh.scavenger.config.Properties
 
 class MenuScreen (game: Game, spriteBatch: SpriteBatch) extends Screen{
 
-  private val theme: Music = SoundTrackManager.menuTheme
+  val theme: Music = SoundTrackManager.menuTheme
   private val camera: OrthographicCamera = new OrthographicCamera
   private val viewport: FitViewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
   private val background: Texture = new Texture(ImagePath.BACKGROUND)
   private val stage: Stage = new Stage(viewport, spriteBatch)
-  private val table = new MenuTable(game, spriteBatch, this).createMenuTable()
+  private val table = new MenuTable(game, spriteBatch, this, theme).createMenuTable()
   theme.setLooping(true)
   theme.setVolume(if (Properties.devMode) 0.05f else 1f)
   theme.play()

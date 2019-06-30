@@ -2,6 +2,7 @@ package korba.crownzeh.scavenger.screens.menu
 
 
 import com.badlogic.gdx.Game
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.ui.{Image, Table}
@@ -9,7 +10,7 @@ import korba.crownzeh.scavenger.assets.ImagePath
 import korba.crownzeh.scavenger.screens.button.{ButtonAction, ButtonCreator}
 
 
-class MenuTable(game: Game, spriteBatch: SpriteBatch, menuScreen: MenuScreen) {
+class MenuTable(game: Game, spriteBatch: SpriteBatch, menuScreen: MenuScreen, theme: Music) {
 
   private[menu] def createMenuTable(): Table = {
     val logo = new Image(new Texture(ImagePath.LOGO))
@@ -18,7 +19,7 @@ class MenuTable(game: Game, spriteBatch: SpriteBatch, menuScreen: MenuScreen) {
     logo.setSize(logo.getWidth * 2, logo.getHeight * 2)
     table.add(logo).size(logo.getWidth, logo.getHeight)
     import ButtonCreator._, ButtonAction._, ImagePath._
-    addRowWithButton(table, createButton(PLAY_BUTTON, () => enterLevelSelectionScreen(game, spriteBatch, menuScreen)))
+    addRowWithButton(table, createButton(PLAY_BUTTON, () => enterLevelSelectionScreen(game, spriteBatch, menuScreen, theme)))
     addRowWithButton(table, createButton(INFO_BUTTON, () => enterInfoScreen(game, spriteBatch, menuScreen)))
     addRowWithButton(table, createButton(EXIT_BUTTON, () => exitGame()))
     table.setFillParent(true)
