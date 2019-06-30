@@ -1,6 +1,7 @@
 package korba.crownzeh.scavenger.gameplay.world
 
 import C.SolidTile
+import box2dLight.RayHandler
 import com.badlogic.gdx.{Game, Gdx}
 import com.badlogic.gdx.maps.objects.RectangleMapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
@@ -8,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.World
 import korba.crownzeh.scavenger.gameplay.world.obstacle.{Coin, EnemyBlocker, Heart, Spike}
 import korba.crownzeh.scavenger.screens.GameScreen
 
-class Box2dWorldLoader(game: Game, map: TiledMap, world: World, gameScreen: GameScreen) {
+class Box2dWorldLoader(game: Game, map: TiledMap, world: World, gameScreen: GameScreen, rayHandler: RayHandler) {
 
   private val GROUND_LAYER = 2
   private val PLATFORM_LAYER = 3
@@ -28,8 +29,8 @@ class Box2dWorldLoader(game: Game, map: TiledMap, world: World, gameScreen: Game
      layer match {
        case GROUND_LAYER => new SolidTile(world, map, tile.getRectangle)
        case PLATFORM_LAYER => new SolidTile(world, map, tile.getRectangle)
-       case COIN_LAYER => new Coin(world, map, tile.getRectangle)
-       case HEART_LAYER => new Heart(world, map, tile.getRectangle)
+       case COIN_LAYER => new Coin(world, map, tile.getRectangle, rayHandler)
+       case HEART_LAYER => new Heart(world, map, tile.getRectangle, rayHandler)
        case SPIKE_LAYER => new Spike(world, map, tile.getRectangle)
        case ENEMY_LAYER => {Gdx.app.log("Enemy","not supported yet")} // TODO
        case ENEMY_BLOCKER_LAYER => new EnemyBlocker(world, map, tile.getRectangle)

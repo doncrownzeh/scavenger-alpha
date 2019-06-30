@@ -1,20 +1,22 @@
 package korba.crownzeh.scavenger.screens
 
+import box2dLight.RayHandler
 import com.badlogic.gdx.Application.ApplicationType
-import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.{SpriteBatch, TextureAtlas}
+import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.{Game, Gdx, Screen}
 import korba.crownzeh.scavenger.assets.level.Level
 import korba.crownzeh.scavenger.config.Properties
-import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
 import korba.crownzeh.scavenger.gameplay.control.{KeyboardProcessor, MobileOverlay}
 import korba.crownzeh.scavenger.gameplay.player.{PlayerAction, PlayerAspect}
 import korba.crownzeh.scavenger.gameplay.scene.InGameHud
 import korba.crownzeh.scavenger.gameplay.world.{Box2dWorldLoader, WorldContactListener}
+
 
 class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Screen {
 
@@ -35,7 +37,8 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   val playerAction = new PlayerAction(player)
   val hud = new InGameHud(game, spriteBatch, player)
   // val controlOverlay = MobileOverlay(playerAction) TODO
-  val b2world = new Box2dWorldLoader(game, map, world, this)
+  val rayHandler = new RayHandler(world)
+  val b2world = new Box2dWorldLoader(game, map, world, this, rayHandler)
   b2world.load()
   hud.update()
   world.setContactListener(new WorldContactListener(player))
@@ -43,6 +46,7 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   theme.setLooping(true)
   theme.setVolume(if (Properties.devMode) 0.05f else 1f)
   theme.play()
+  setLights()
 
   override def show(): Unit = {
     Gdx.input.setInputProcessor(Properties.device match {
@@ -64,6 +68,8 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
     // spriteBatch.setProjectionMatrix(hud.stage.getCamera.combined) TODO
     // hud.stage.draw() TODO
     // controlOverlay.draw() TODO
+    rayHandler.updateAndRender()
+    rayHandler.setCombinedMatrix(gameCamera)
   }
 
   def update(delta: Float): Unit = {
@@ -108,4 +114,11 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
     b2ddr.setDrawVelocities(devMode)
     b2ddr.setDrawBodies(devMode)
   }
+
+  private def setLights(): Unit = {
+    val ambientColor = level.ambientColor
+    ambientColor.a = level.ambientAlpha
+    rayHandler.setAmbientLight(ambientColor)
+  }
+
 }

@@ -12,7 +12,7 @@ case class GenericTile(world: World, tiledMap: TiledMap, bounds: Rectangle) {
   private val polyShape = new PolygonShape
   bodyDef.`type` = BodyDef.BodyType.StaticBody
   bodyDef.position.set((bounds.getX + bounds.getWidth / 2) / Properties.PIXELS_PER_METER, (bounds.getY + bounds.getHeight / 2) / Properties.PIXELS_PER_METER)
-  private val body: Body = world.createBody(bodyDef)
+  val body: Body = world.createBody(bodyDef)
   polyShape.setAsBox(bounds.getWidth / 2 / Properties.PIXELS_PER_METER, bounds.getHeight / 2 / Properties.PIXELS_PER_METER)
   fixtureDef.shape = polyShape
   val fixture: Fixture = body.createFixture(fixtureDef)
