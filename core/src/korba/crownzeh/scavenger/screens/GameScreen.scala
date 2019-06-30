@@ -1,5 +1,6 @@
 package korba.crownzeh.scavenger.screens
 
+import com.badlogic.gdx.Application.ApplicationType
 import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.{SpriteBatch, TextureAtlas}
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
@@ -10,6 +11,7 @@ import com.badlogic.gdx.{Game, Gdx, Screen}
 import korba.crownzeh.scavenger.assets.level.Level
 import korba.crownzeh.scavenger.config.Properties
 import com.badlogic.gdx.physics.box2d.{Box2DDebugRenderer, World}
+import korba.crownzeh.scavenger.gameplay.control.{KeyboardProcessor, MobileOverlay}
 import korba.crownzeh.scavenger.gameplay.player.PlayerAspect
 import korba.crownzeh.scavenger.gameplay.scene.InGameHud
 import korba.crownzeh.scavenger.gameplay.world.{Box2dWorldLoader, WorldContactListener}
@@ -40,7 +42,12 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   theme.setLooping(true)
   theme.play()
 
-  override def show(): Unit = {}
+  override def show(): Unit = {
+    Gdx.input.setInputProcessor(Properties.device match {
+      case ApplicationType.Desktop => KeyboardProcessor
+      case ApplicationType.Android => MobileOverlay.getStage
+    })
+  }
 
   override def render(delta: Float): Unit = {
     update(delta)
