@@ -32,21 +32,17 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   gameCamera.position.set(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0)
   private val world = new World(new Vector2(0, -10), true)
   private val b2ddr = new Box2DDebugRenderer
-  setPhysicsIndicators()
   private val player = new PlayerAspect(world)
-  val playerAction = new PlayerAction(player)
-  val hud = new InGameHud(game, spriteBatch, player)
+  private val playerAction = new PlayerAction(player)
+  private val hud = new InGameHud(game, spriteBatch, player)
   // val controlOverlay = MobileOverlay(playerAction) TODO
-  val rayHandler = new RayHandler(world)
+  private val rayHandler = setLights(world)
   val b2world = new Box2dWorldLoader(game, map, world, this, rayHandler)
   b2world.load()
-  hud.update()
+  hud.update() // TODO check if it's needed here
   world.setContactListener(new WorldContactListener(player))
-  private val theme = level.theme
-  theme.setLooping(true)
-  theme.setVolume(if (Properties.devMode) 0.05f else 1f)
-  theme.play()
-  setLights()
+  setPhysicsIndicators()
+  prepareTheme(level)
 
   override def show(): Unit = {
     Gdx.input.setInputProcessor(Properties.device match {
@@ -56,6 +52,7 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   }
 
   override def render(delta: Float): Unit = {
+    world.step(1 / 60f, 6, 2)
     update(delta)
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -73,7 +70,6 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
   }
 
   def update(delta: Float): Unit = {
-    world.step(1 / 60f, 6, 2)
     player.update(delta)
     //gameCamera.position.x = player.body.getPosition.x TODO
     //gameCamera.position.y = player.body.getPosition.y + 3 TODO
@@ -115,10 +111,19 @@ class GameScreen(game: Game, spriteBatch: SpriteBatch, level: Level) extends Scr
     b2ddr.setDrawBodies(devMode)
   }
 
-  private def setLights(): Unit = {
+  private def setLights(world: World): RayHandler = {
+    val rayHandler = new RayHandler(world)
     val ambientColor = level.ambientColor
     ambientColor.a = level.ambientAlpha
     rayHandler.setAmbientLight(ambientColor)
+    rayHandler
+  }
+
+  private def prepareTheme (level: Level): Unit = {
+    val theme = level.theme
+    theme.setLooping(true)
+    theme.setVolume(if (Properties.devMode) 0.05f else 1f)
+    theme.play()
   }
 
 }
