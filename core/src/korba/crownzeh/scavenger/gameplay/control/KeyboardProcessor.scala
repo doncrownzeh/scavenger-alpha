@@ -12,6 +12,7 @@ case class KeyboardProcessor(action: PlayerAction) extends InputProcessor{
       case Keys.UP => {Gdx.app.log("KeyDown", "Up")}
       case Keys.DOWN => {Gdx.app.log("KeyDown", "Down")}
       case Keys.SPACE => {Gdx.app.log("KeyDown", "Space")}
+      case _ => {}
     }
     false
   }
@@ -23,6 +24,7 @@ case class KeyboardProcessor(action: PlayerAction) extends InputProcessor{
       case Keys.UP => {Gdx.app.log("KeyUp", "Up")}
       case Keys.DOWN => {Gdx.app.log("KeyUp", "Down")}
       case Keys.SPACE => {Gdx.app.log("KeyUp", "Space")}
+      case _ => {}
     }
     false
   }

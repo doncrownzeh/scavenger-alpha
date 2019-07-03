@@ -2,7 +2,7 @@ package korba.crownzeh.scavenger.assets
 
 object ImagePath {
 
-  val BACKGROUND = "background_texture.png"
+  val BACKGROUND = "background_texture_2.png"
   val LOGO = "logo.png"
   val PLAY_BUTTON = "buttons/btn_play.png"
   val INFO_BUTTON = "buttons/btn_settings.png"
