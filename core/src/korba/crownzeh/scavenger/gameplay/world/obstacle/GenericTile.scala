@@ -7,19 +7,29 @@ import korba.crownzeh.scavenger.config.Properties
 
 case class GenericTile(world: World, tiledMap: TiledMap, bounds: Rectangle) {
 
-  private val bodyDef = new BodyDef
-  private val fixtureDef = new FixtureDef
-  private val polyShape = new PolygonShape
-  bodyDef.`type` = BodyDef.BodyType.StaticBody
-  bodyDef.position.set((bounds.getX + bounds.getWidth / 2) / Properties.PIXELS_PER_METER, (bounds.getY + bounds.getHeight / 2) / Properties.PIXELS_PER_METER)
-  val body: Body = world.createBody(bodyDef)
-  polyShape.setAsBox(bounds.getWidth / 2 / Properties.PIXELS_PER_METER, bounds.getHeight / 2 / Properties.PIXELS_PER_METER)
-  fixtureDef.shape = polyShape
-  val fixture: Fixture = body.createFixture(fixtureDef)
+  val body: Body = createBody()
+  val fixture: Fixture = createFixture()
 
-  def setCategoryFilter(filterBit: Short): Unit = {
+  private[world] def setCategoryFilter(filterBit: Short): Unit = {
     val filter = new Filter
     filter.categoryBits = filterBit
     fixture.setFilterData(filter)
+  }
+
+  private def createBody(): Body = {
+    val bodyDef = new BodyDef
+    bodyDef.`type` = BodyDef.BodyType.StaticBody
+    import Properties._
+    bodyDef.position.set((bounds.getX + bounds.getWidth / 2) / PIXELS_PER_METER, (bounds.getY + bounds.getHeight / 2) / PIXELS_PER_METER)
+    world.createBody(bodyDef)
+  }
+
+  private def createFixture(): Fixture = {
+    val fixtureDef = new FixtureDef
+    val polyShape = new PolygonShape
+    import Properties._
+    polyShape.setAsBox(bounds.getWidth / 2 / PIXELS_PER_METER, bounds.getHeight / 2 / PIXELS_PER_METER)
+    fixtureDef.shape = polyShape
+    body.createFixture(fixtureDef)
   }
 }
