@@ -1,6 +1,6 @@
 package korba.crownzeh.scavenger.gameplay.world.obstacle
 
-import box2dLight.{PointLight, RayHandler}
+import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.math.Rectangle

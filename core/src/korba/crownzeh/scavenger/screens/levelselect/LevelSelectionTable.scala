@@ -21,10 +21,10 @@ class LevelSelectionTable {
       val i = level.id
       import ButtonCreator._, ImagePath._
       val button = if (level.isUnlocked) {
-        createButton(LEVEL_BUTTON_DIR + level.name + ".png", () => ButtonAction.startLevel(game, spriteBatch, level, theme)) // TODO button action
+        createButton(LEVEL_BUTTON_DIR + level.levelType.name + ".png", () => ButtonAction.startLevel(game, spriteBatch, level, theme))
       }
       else {
-        new Image(new Texture(LEVEL_BUTTON_DIR + level.name + "_locked.png"))
+        new Image(new Texture(LEVEL_BUTTON_DIR + level.levelType.name + "_locked.png"))
       }
       levelTable.add(button)
 

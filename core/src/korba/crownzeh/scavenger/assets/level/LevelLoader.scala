@@ -19,7 +19,7 @@ object LevelLoader {
   private def loadForType(levelType: LevelType): Vector[Level] = {
     var levels = Vector[Level]()
     for (i <- 1 to levelType.numberOfMaps) {
-      levels = levels.:+(Level(i, levelType.name, levelType.path + i + ".tmx", levelType.theme, levelType.ambientColor, levelType.ambientAlpha))
+      levels = levels.:+(Level(levelType, i))
     }
     levels
   }

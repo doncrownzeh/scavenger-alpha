@@ -18,12 +18,16 @@ class MenuTable(game: Game, spriteBatch: SpriteBatch, menuScreen: MenuScreen, th
     table.center.top.padTop(10)
     logo.setSize(logo.getWidth * 2, logo.getHeight * 2)
     table.add(logo).size(logo.getWidth, logo.getHeight)
+    addMenuButtons(table)
+    table.setFillParent(true)
+    table
+  }
+
+  private def addMenuButtons(table: Table): Unit = {
     import ButtonCreator._, ButtonAction._, ImagePath._
     addRowWithButton(table, createButton(PLAY_BUTTON, () => enterLevelSelectionScreen(game, spriteBatch, menuScreen, theme)))
     addRowWithButton(table, createButton(INFO_BUTTON, () => enterInfoScreen(game, spriteBatch, menuScreen)))
     addRowWithButton(table, createButton(EXIT_BUTTON, () => exitGame()))
-    table.setFillParent(true)
-    table
   }
 
   private def addRowWithButton(table: Table, button: Image): Unit = {

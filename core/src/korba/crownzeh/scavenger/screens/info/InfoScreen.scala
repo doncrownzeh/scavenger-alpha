@@ -14,8 +14,7 @@ class InfoScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen) 
   private val camera = new OrthographicCamera
   private val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
   private val stage = new Stage(viewport, spriteBatch)
-  private  val resolution: String = Gdx.graphics.getWidth + "/" + Gdx.graphics.getHeight
-
+  private val resolution: String = Gdx.graphics.getWidth + "/" + Gdx.graphics.getHeight
   private val deviceLabel = new Label("Device", new Label.LabelStyle(new BitmapFont, Color.WHITE))
   private val deviceVersionLabel = new Label(Properties.device.toString, new Label.LabelStyle(new BitmapFont, Color.WHITE))
   private val resolutionLabel = new Label("Resolution", new Label.LabelStyle(new BitmapFont, Color.WHITE))
