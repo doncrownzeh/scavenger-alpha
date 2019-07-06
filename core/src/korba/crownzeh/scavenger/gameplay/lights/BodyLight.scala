@@ -1,4 +1,4 @@
-package korba.crownzeh.scavenger.gameplay.world
+package korba.crownzeh.scavenger.gameplay.lights
 
 import box2dLight.{PointLight, RayHandler}
 import com.badlogic.gdx.graphics.Color

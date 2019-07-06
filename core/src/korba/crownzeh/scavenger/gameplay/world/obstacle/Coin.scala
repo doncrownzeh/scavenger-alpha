@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.physics.box2d.{Body, World}
 import korba.crownzeh.scavenger.config.Properties
-import korba.crownzeh.scavenger.gameplay.world.{BodyLight, LightSource}
+import korba.crownzeh.scavenger.gameplay.lights.{BodyLight, LightSource}
 
 class Coin(world: World, tiledMap: TiledMap, rectangle: Rectangle, rayHandler: RayHandler) extends Collidable with LightSource{
 

@@ -8,7 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.physics.box2d.World
 import korba.crownzeh.scavenger.assets.level.Level
 import korba.crownzeh.scavenger.config.Properties
-import korba.crownzeh.scavenger.gameplay.enemy.{Enemy, Soldier}
+import korba.crownzeh.scavenger.gameplay.enemy.Enemy
+import korba.crownzeh.scavenger.gameplay.enemy.soldier.Soldier
 import korba.crownzeh.scavenger.gameplay.world.obstacle.{Coin, EnemyBlocker, Heart, Spike}
 import korba.crownzeh.scavenger.screens.GameScreen
 
@@ -39,7 +40,7 @@ class Box2dWorldLoader(game: Game, map: TiledMap, world: World, gameScreen: Game
        case SPIKE_LAYER => new Spike(world, map, tile.getRectangle)
        case ENEMY_LAYER => {
          val bounds = tile.getRectangle
-         enemies = enemies :+ new Soldier(world, gameScreen, bounds, level.levelType)
+         enemies = enemies :+ new Soldier(world, gameScreen, bounds, level.levelType, rayHandler)
        }
        case ENEMY_BLOCKER_LAYER => new EnemyBlocker(world, map, tile.getRectangle)
      }
