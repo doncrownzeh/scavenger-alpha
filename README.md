@@ -1,3 +1,3 @@
-# Scavenger Alpha version
+# Scavenger (alpha version)
 
 
