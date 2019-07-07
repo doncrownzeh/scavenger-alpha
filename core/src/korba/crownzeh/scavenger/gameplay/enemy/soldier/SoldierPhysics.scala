@@ -52,12 +52,8 @@ case class SoldierPhysics(world: World, bounds: Rectangle) {
 
   private def createHeadShape(): Shape = {
     val head = new PolygonShape
-    val vertices: Array[Vector2] = new Array[Vector2]
-    vertices.add(new Vector2(-11, 25).scl(1 / Properties.PIXELS_PER_METER))
-    vertices.add(new Vector2(11, 25).scl(1 / Properties.PIXELS_PER_METER))
-    vertices.add(new Vector2(-9, 19).scl(1 / Properties.PIXELS_PER_METER))
-    vertices.add(new Vector2(9, 19).scl(1 / Properties.PIXELS_PER_METER))
-    //head.set(vertices.toArray)
+    val offsetVector = new Vector2(0, 20).scl(1 / Properties.PIXELS_PER_METER)
+    head.setAsBox(9 / Properties.PIXELS_PER_METER, 1 / Properties.PIXELS_PER_METER, offsetVector, 0)
     head
   }
 }
