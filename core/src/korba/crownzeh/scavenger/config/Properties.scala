@@ -3,7 +3,6 @@ package korba.crownzeh.scavenger.config
 
 import com.badlogic.gdx.Application.ApplicationType
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 
 object Properties {
   val VIRTUAL_WIDTH = 640
