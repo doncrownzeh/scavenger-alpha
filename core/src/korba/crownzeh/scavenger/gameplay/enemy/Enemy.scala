@@ -12,6 +12,8 @@ trait Enemy extends LightSource{
 
   def die()
 
+  def flipEnemy()
+
   def prepareSprite(): Sprite
 
   def update(delta: Float)

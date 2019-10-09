@@ -27,7 +27,7 @@ class Soldier(world: World, screen: Screen, bounds: Rectangle, levelType: LevelT
 
 
   override def defineEnemy(): Body = {
-    val soldierPhysics = SoldierPhysics(world, bounds)
+    val soldierPhysics = SoldierPhysics(world, bounds, this)
     val body = soldierPhysics.create()
     setLightUp(body, rayHandler)
     body
@@ -63,7 +63,7 @@ class Soldier(world: World, screen: Screen, bounds: Rectangle, levelType: LevelT
     }
   }
 
-  def flipEnemy(): Unit = {
+  override def flipEnemy(): Unit = {
     direction = if (direction == Right) Left else Right
     for (frame <- frames.toArray) {
       frame.flip(true, false)

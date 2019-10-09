@@ -2,16 +2,15 @@ package korba.crownzeh.scavenger.gameplay.enemy.soldier
 
 import com.badlogic.gdx.math.{Rectangle, Vector2}
 import com.badlogic.gdx.physics.box2d._
-import com.badlogic.gdx.utils.Array
 import korba.crownzeh.scavenger.config.Properties
 
-case class SoldierPhysics(world: World, bounds: Rectangle) {
+case class SoldierPhysics(world: World, bounds: Rectangle, soldier: Soldier) {
 
   def create(): Body = {
     val bodyDef = createBodyDefinition()
     val body = world.createBody(bodyDef)
-    body.createFixture(createBodyHitBox()).setUserData(this)
-    body.createFixture(createHeadHitBox()).setUserData(this)
+    body.createFixture(createBodyHitBox()).setUserData(soldier)
+    body.createFixture(createHeadHitBox()).setUserData(soldier)
     body
   }
 
