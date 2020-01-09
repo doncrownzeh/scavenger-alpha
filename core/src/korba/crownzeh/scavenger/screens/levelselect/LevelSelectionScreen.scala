@@ -8,11 +8,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.{Game, Gdx, Screen}
 import korba.crownzeh.scavenger.assets.ImagePath
 import korba.crownzeh.scavenger.config.Properties
-import korba.crownzeh.scavenger.screens.Backable
+import korba.crownzeh.scavenger.screens.Back
 
 
 
-class LevelSelectionScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen, theme: Music) extends Screen with Backable{
+class LevelSelectionScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen, theme: Music) extends Screen with Back{
 
   private val camera = new OrthographicCamera
   private val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)

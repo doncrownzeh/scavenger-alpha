@@ -8,10 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Image, Table}
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.{Game, Gdx, Screen}
 import korba.crownzeh.scavenger.assets.ImagePath.PLAY_BUTTON
+import korba.crownzeh.scavenger.assets.ImagePath.EXIT_BUTTON
+import korba.crownzeh.scavenger.assets.ImagePath.SETTINGS_BUTTON
 import korba.crownzeh.scavenger.assets.{ImagePath, SoundTrackManager}
 import korba.crownzeh.scavenger.config.Properties
+import korba.crownzeh.scavenger.screens.button.ButtonDefinition
 import korba.crownzeh.scavenger.screens.button.ButtonAction.{enterInfoScreen, enterLevelSelectionScreen, exitGame}
-import korba.crownzeh.scavenger.screens.button.ButtonCreator
+import korba.crownzeh.scavenger.screens.menu.Action._
 
 class MenuScreen(game: Game, spriteBatch: SpriteBatch) extends Screen {
 
@@ -62,18 +65,18 @@ class MenuScreen(game: Game, spriteBatch: SpriteBatch) extends Screen {
 
   private def createKorbaLogo(): Table = {
     val table = new Table()
-    table.add(ButtonCreator.createButton(ImagePath.KORBA_LOGO, () => {}))
+    table.add(new Image(new Texture(ImagePath.KORBA_LOGO)).addOnClick(() => {}))
     table.setFillParent(true)
     table.left().bottom().pad(10f)
     table
   }
 
   private def createTopMenu(): Table = {
-    val table = new Table()
-    table.add(ButtonCreator.createButton(ImagePath.SETTINGS_BUTTON, () => {}))
-    table.add(ButtonCreator.createButton(ImagePath.INFO_BUTTON, () => enterInfoScreen(game, spriteBatch, this)))
+    val table = createTableWithButtons().left().top().pad(10f).padLeft(20f)
+    val settings = ButtonDefinition[Unit](new Texture(SETTINGS_BUTTON),() => {})
+    table.add(new Image(new Texture(ImagePath.INFO_BUTTON)).addOnClick(enterInfoScreen(game, spriteBatch, this)))
     table.setFillParent(true)
-    table.left().top().pad(10f)
+    table.left().top().pad(10f).padLeft(20f)
     table
   }
 
@@ -86,20 +89,26 @@ class MenuScreen(game: Game, spriteBatch: SpriteBatch) extends Screen {
   }
 
   private def createExitTable(): Table = {
-    val table = new Table()
-    table.add(ButtonCreator.createButton(ImagePath.EXIT_BUTTON, () => exitGame()))
-    table.setFillParent(true)
-    table.right().bottom().pad(10f)
-    table
+    val exitButton = ButtonDefinition[Unit](new Texture(EXIT_BUTTON), exitGame)
+    createTableWithButtons(exitButton).right().bottom().pad(10f)
   }
 
   private def createPlayButtonTable(): Table = {
+    val playButton = ButtonDefinition[Unit](new Texture(PLAY_BUTTON), () => enterLevelSelectionScreen(game, spriteBatch, this, theme))
+    createTableWithButtons(playButton).center()
+  }
+
+  private def createTableWithButtons(buttons: ButtonDefinition[Unit]*): Table = {
     val table = new Table()
-    val playButton = ButtonCreator.createButton(PLAY_BUTTON, () => enterLevelSelectionScreen(game, spriteBatch, this, theme))
-    playButton.setSize(playButton.getWidth * 1.5f, playButton.getHeight * 1.5f)
-    table.add(playButton).size(playButton.getWidth, playButton.getHeight)
+    buttons.map(toImage).foreach(button => {
+      table.add(button)
+    })
     table.setFillParent(true)
-    table.center()
     table
   }
+
+  private def toImage(button: ButtonDefinition[Unit]): Image = {
+    new Image(button.texture).addOnClick(button.function)
+  }
+
 }
