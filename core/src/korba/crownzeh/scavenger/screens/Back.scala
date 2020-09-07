@@ -11,7 +11,7 @@ trait Back {
 
   def createBackTable(game: Game, previousScreen: Screen): Table = {
     import ButtonAction._, ImagePath._
-    val backButton = new Image(new Texture(BACK_BUTTON)).addOnClick(goBack(game, previousScreen))
+    val backButton = new Image(new Texture(BACK_BUTTON)).addOnClick(() => goBack(game, previousScreen))
     val navTable = new Table()
     navTable.bottom.left.pad(5, 5, 5, 5)
     navTable.add(backButton).size(backButton.getWidth, backButton.getHeight)

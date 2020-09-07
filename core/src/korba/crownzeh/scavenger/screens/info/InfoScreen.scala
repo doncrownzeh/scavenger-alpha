@@ -9,7 +9,7 @@ import com.badlogic.gdx.{Game, Gdx, Screen}
 import korba.crownzeh.scavenger.config.Properties
 import korba.crownzeh.scavenger.screens.Back
 
-class InfoScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen) extends Screen with Back{
+class InfoScreen (game: Game, spriteBatch: SpriteBatch, previousScreen: Screen) extends Screen with Back {
 
   private val camera = new OrthographicCamera
   private val viewport = new FitViewport(Properties.VIRTUAL_WIDTH, Properties.VIRTUAL_HEIGHT, camera)
